@@ -1,0 +1,13 @@
+=>Authentication:
+    -->Register
+    -->Login
+    -->Logout (Token blacklisting)
+    -->OTP based registration
+=>Posts
+    -->Create
+    -->Can see the feed
+    -->Like posts (edge collection)
+    -->Save Posts
+=>Users
+    -->Followers
+    -->Following
