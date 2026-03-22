@@ -66,4 +66,49 @@ async function handleRegisterController(req,res){
 
 }
 
-module.exports = {handleRegisterController}
+async function handleLoginController(req,res){
+    const {email,password,username} = req.body
+
+    //check whether email or username exists or not
+    const isUserValid = await userModel.findOne({
+        $or:[
+            {username:username},
+            {email:email}
+        ]
+    })
+    if(!isUserValid){
+        return res.status(404).json({
+            message:'Invalid details'
+        })
+    }
+    //check of password
+    const hashedPass = crypto.createHash("sha256").update(password).digest('hex')
+
+    const isValidPassword = hashedPass==isUserValid.password.toString()
+    if(!isValidPassword){
+        return res.status(404).json({
+            message:'Invalid details'
+        })
+    }
+    //create token
+    const token = jwt.sign({
+        id:isUserValid._id,
+        email:isUserValid.email,
+        username:isUserValid.username
+    },process.env.JWT_SECRET,{expiresIn:'1d'})
+
+    res.cookie("token",token)
+
+    res.status(200).json({
+        message:"User loggedin successfully",
+        user:{
+            username:isUserValid.username,
+            email:isUserValid.email,
+            token
+        }
+    })
+
+
+}
+
+module.exports = {handleRegisterController,handleLoginController}
