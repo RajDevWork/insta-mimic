@@ -1,24 +1,16 @@
 const userModel = require("../models/user.model")
-const crypto = require("crypto")
 const jwt = require("jsonwebtoken")
+const bcrypt = require("bcryptjs")
 
+
+/** 
+ * @desc Register controller
+ * @route POST /api/auth/register
+ * @access Public
+ */
 async function handleRegisterController(req,res){
 
     const {email,username,password,bio,profile_image} = req.body
-    // //check email already exists
-    // const emailAlreadyExists = await userModel.findOne({email})
-    // if(emailAlreadyExists){
-    //     return res.status(409).json({
-    //         message:"Email already taken!"
-    //     })
-    // }
-    // //check username already exists
-    // const usernameAlreadyExist =  await userModel.findOne({username})
-    // if(usernameAlreadyExist){
-    //     return res.status(409).json({
-    //         message:"Username already taken!"
-    //     })
-    // }
 
     const isUserAlreadyExists = await userModel.findOne({
         $or:[
@@ -32,8 +24,8 @@ async function handleRegisterController(req,res){
         })
     }
 
-    //password hashing
-    const hashedPassword = crypto.createHash("sha256").update(password).digest('hex')
+    //password hashing using bcrypt
+    const hashedPassword = await bcrypt.hash(password,10)
 
 
     //create user
@@ -65,7 +57,11 @@ async function handleRegisterController(req,res){
     })
 
 }
-
+/** 
+ * @desc Login controller
+ * @route POST /api/auth/login
+ * @access Public
+ */
 async function handleLoginController(req,res){
     const {email,password,username} = req.body
 
@@ -81,10 +77,9 @@ async function handleLoginController(req,res){
             message:'Invalid details'
         })
     }
-    //check of password
-    const hashedPass = crypto.createHash("sha256").update(password).digest('hex')
+    //check of password using bcrypt
 
-    const isValidPassword = hashedPass==isUserValid.password.toString()
+    const isValidPassword = await bcrypt.compare(password,isUserValid.password)
     if(!isValidPassword){
         return res.status(404).json({
             message:'Invalid details'
