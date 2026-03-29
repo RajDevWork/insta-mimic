@@ -18,7 +18,7 @@ const followRouter = require("./routes/follow.routes")
  */
 app.use("/api/auth",authRouter)
 app.use("/api/posts",postRouter)
-app.use("/api/follow",followRouter)
+app.use("/api/users",followRouter)
 
 
 module.exports = app;
