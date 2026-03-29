@@ -37,6 +37,55 @@ async function createPostController(req,res){
     })
 }
 
+/** 
+ * @desc Get All post controller
+ * @route GET /api/posts
+ * @access Private
+ */
+async function getPostController(req,res){
+    const userID = req.user.id
+
+    const posts = await postModel.find({user:userID})
+    if(!posts){
+        return res.status(404).json({
+            message:"No Post found!"
+        })
+    }
+    res.status(200).json({
+        message:"Post fetched successfully!",
+        posts
+    })
+}
+async function getPostByIDController(req,res){
+    const userID = req.user.id
+    const postID = req.params.postID
+
+    // console.log("userid = ",userID,"postID = ",postID)
+
+    const post = await postModel.findOne({_id:postID})
+    if(!post){
+       return res.status(404).json({
+            message:"You are trying to search a resounse that is not available!"
+        })
+    }
+    const isValidUser = post.user.toString() === userID;
+    if(!isValidUser){
+       return res.status(403).json({
+        message:"Forbidden access!"
+       })
+    }
+
+    res.status(200).json({
+        message:"Post fetched successfully!",
+        post
+    })
+
+}
+
+
+
 module.exports = {
-    createPostController
+    createPostController,
+    getPostController,
+    getPostByIDController
 }

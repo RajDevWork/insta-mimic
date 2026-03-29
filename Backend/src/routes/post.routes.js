@@ -16,6 +16,19 @@ const upload = multer({storage:multer.memoryStorage()})
 postRouter.post("/",indentifyUser,upload.single("image"),postController.createPostController)
 
 
+/** 
+ * @route GET /api/posts
+ * @desc Get all posts
+ * @access Private
+ */
+postRouter.get("/",indentifyUser,postController.getPostController)
+
+/** 
+ * @route GET /api/posts/:postID
+ * @desc Get a post by matching id
+ * @access Private
+ */
+postRouter.get("/:postID",indentifyUser,postController.getPostByIDController)
 
 
 module.exports = postRouter
