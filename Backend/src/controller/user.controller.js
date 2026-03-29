@@ -71,7 +71,7 @@ async function handleLoginController(req,res){
             {username:username},
             {email:email}
         ]
-    })
+    }).select("+password")
     if(!isUserValid){
         return res.status(404).json({
             message:'Invalid details'

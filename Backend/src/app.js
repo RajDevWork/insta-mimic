@@ -11,12 +11,14 @@ app.use(cookieParser())
  */
 const authRouter = require("./routes/user.routes")
 const postRouter = require("./routes/post.routes")
+const followRouter = require("./routes/follow.routes")
 
 /**
  * @desc Using routes
  */
 app.use("/api/auth",authRouter)
 app.use("/api/posts",postRouter)
+app.use("/api/follow",followRouter)
 
 
 module.exports = app;
