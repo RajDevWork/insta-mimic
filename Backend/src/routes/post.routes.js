@@ -25,10 +25,10 @@ postRouter.get("/",indentifyUser,postController.getPostController)
 
 /** 
  * @route GET /api/posts/:postID
- * @desc Get a post by matching id
+ * @desc Get a post details by matching post id and post belonging user
  * @access Private
  */
-postRouter.get("/:postID",indentifyUser,postController.getPostByIDController)
+postRouter.get("/details/:postID",indentifyUser,postController.getPostDetailsController)
 
 
 module.exports = postRouter
