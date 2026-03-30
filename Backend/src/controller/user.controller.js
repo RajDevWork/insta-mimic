@@ -105,5 +105,20 @@ async function handleLoginController(req,res){
 
 
 }
+async function getMeController(req,res){
+    const userId = req.user.id
 
-module.exports = {handleRegisterController,handleLoginController}
+    const user = await userModel.findById(userId)
+    if(!user){
+        return res.status(404).json({
+            message:"User not found"
+        })
+    }
+
+    res.status(200).json({
+        message:"Loggedin User details",
+        user
+    })
+}
+
+module.exports = {handleRegisterController,handleLoginController,getMeController}
