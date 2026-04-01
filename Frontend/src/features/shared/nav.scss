@@ -1,0 +1,29 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    position: sticky;
+    color: var(--text-primary);
+    top: 0;
+    padding-inline: 0.4rem;
+    z-index: 10;
+    backdrop-filter: blur(5px);
+    padding-block: 1rem;
+    .right-side{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        .theme-toggle-container button{
+            background-color: transparent!important;
+            border: none;
+            font-size: 1.3rem;
+            cursor: pointer;
+            &:active{
+                transform: scale(0.95);
+            }
+        }
+
+    }
+}

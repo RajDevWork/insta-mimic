@@ -2,6 +2,7 @@ import React, {useEffect,useState } from 'react'
 import '../style/feed.scss'
 import Post from '../components/Post';
 import {usePost} from '../hooks/usePost'
+import Nav from '../../shared/components/Nav';
 
 const Feed = () => {
 
@@ -40,15 +41,8 @@ const Feed = () => {
   return (
     <main className='feed-page'>
       <div className="feed">
-        <div className="theme-toggle-container">
-          <button 
-            className={`theme-toggle ${isDarkTheme ? 'dark' : 'light'}`}
-            onClick={() => setIsDarkTheme(!isDarkTheme)}
-            title={isDarkTheme ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
-          >
-            {isDarkTheme ? '☀️' : '🌙'}
-          </button>
-        </div>
+      <Nav setIsDarkTheme={setIsDarkTheme} isDarkTheme={isDarkTheme}/>
+        
 
         <div className="posts">
           {feed.map((post) => (

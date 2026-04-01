@@ -33,8 +33,9 @@
 .feed-page {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  // align-items: flex-start;
   padding-block: 1rem;
+  flex-direction: column;
   min-height: 100vh;
   background-color: var(--bg-primary);
   transition: background-color 0.3s ease;
@@ -358,7 +359,7 @@
       }
 
       .posts {
-        gap: 1rem;
+        gap: 2rem;
       }
 
       .post {
