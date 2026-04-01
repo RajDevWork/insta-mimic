@@ -38,6 +38,14 @@ postRouter.get("/details/:postID",indentifyUser,postController.getPostDetailsCon
  */
 postRouter.post("/like/:postId",indentifyUser,likeController.likePostController)
 
+/** 
+ * @route GET /api/posts/feed
+ * @desc get all the posts
+ * @access Private
+ */
+
+postRouter.get("/feed",indentifyUser,postController.getFeedController)
+
 
 
 module.exports = postRouter

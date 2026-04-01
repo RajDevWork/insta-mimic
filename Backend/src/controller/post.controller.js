@@ -82,10 +82,19 @@ async function getPostDetailsController(req,res){
 
 }
 
+async function getFeedController(req,res){
+    const posts = await postModel.find().sort({_id:-1}).populate('user')
+
+    res.status(200).json({
+        message:"Post fetched successfully!",
+        posts
+    })
+}
 
 
 module.exports = {
     createPostController,
     getPostController,
-    getPostDetailsController
+    getPostDetailsController,
+    getFeedController
 }
