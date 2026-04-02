@@ -38,6 +38,14 @@ postRouter.get("/details/:postID",indentifyUser,postController.getPostDetailsCon
  */
 postRouter.post("/like/:postId",indentifyUser,likeController.likePostController)
 
+
+/** 
+ * @route GET /api/posts/unlike/:postID
+ * @desc UnLike the post
+ * @access Private
+ */
+postRouter.post("/unlike/:postId",indentifyUser,likeController.UnlikePostController)
+
 /** 
  * @route GET /api/posts/feed
  * @desc get all the posts

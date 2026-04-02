@@ -6,7 +6,7 @@ import Nav from '../../shared/components/Nav';
 
 const Feed = () => {
 
-  const {loading,handlePostFeed,feed} = usePost()
+  const {loading,handlePostFeed,feed,handleLikePost,handleDisLikePost} = usePost()
 
   const [isDarkTheme, setIsDarkTheme] = useState(() => {
     // Check localStorage first, then system preference
@@ -46,7 +46,7 @@ const Feed = () => {
 
         <div className="posts">
           {feed.map((post) => (
-            <Post key={post.id} post={post}/>
+            <Post key={post.id} post={post} handleLikePost={handleLikePost} handleDisLikePost={handleDisLikePost}/>
           ))}
         </div>
       </div>
